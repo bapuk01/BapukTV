@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Встроенные плейлисты: «Название|адрес плейлиста|зеркало (необязательно)».
+        В публичной сборке список пуст. Сборка full переопределяет этот файл своим
+        app/src/full/res/values/presets.xml (в репозиторий не входит).
+    -->
+    <string-array name="presets" />
+</resources>

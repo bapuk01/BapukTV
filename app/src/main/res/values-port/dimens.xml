@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="side_width">210dp</dimen>
+    <dimen name="gutter">16dp</dimen>
+    <dimen name="page_padding">20dp</dimen>
+</resources>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:keepScreenOn="true">
+
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        app:keep_content_on_player_reset="true"
+        app:show_buffering="never"
+        app:shutter_background_color="@android:color/black"
+        app:surface_type="surface_view"
+        app:use_controller="false" />
+
+    <ProgressBar
+        android:id="@+id/buffering"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/accent"
+        android:visibility="gone" />
+
+    <!-- Ошибка: чёрный фон, чтобы не оставался кадр прошлого канала -->
+    <FrameLayout
+        android:id="@+id/errorBox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_badge"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.15"
+            android:maxWidth="560dp"
+            android:paddingStart="32dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="32dp"
+            android:paddingBottom="20dp"
+            android:textColor="@color/text"
+            android:textSize="18sp" />
+    </FrameLayout>
+
+    <!-- Плашка с информацией о канале -->
+    <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_info"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="48dp"
+        android:paddingTop="72dp"
+        android:paddingEnd="48dp"
+        android:paddingBottom="36dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/infoLogo"
+            android:layout_width="96dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_logo"
+            android:importantForAccessibility="no"
+            android:padding="4dp"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/infoNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:textColor="@color/accent"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/infoName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/infoGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/text_2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/infoTech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/text_2"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Набор номера с пульта -->
+    <TextView
+        android:id="@+id/digits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_margin="36dp"
+        android:background="@drawable/bg_badge"
+        android:minWidth="110dp"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/accent"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- Индикатор яркости / громкости: тонкая вертикальная полоса без подложки,
+         на противоположной от пальца стороне (громкость — слева, яркость — справа) -->
+    <LinearLayout
+        android:id="@+id/gestureBadge"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/gestureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="#B3000000"
+            android:shadowRadius="6"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/gestureBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="4dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_gesture" />
+
+        <ImageView
+            android:id="@+id/gestureIcon"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_volume"
+            android:tint="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Слева: категории (появляются по второму нажатию «влево») и список каналов -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- Категории -->
+        <LinearLayout
+            android:id="@+id/groupPanel"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="#F20D0F13"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="12dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="12dp"
+                android:text="@string/categories"
+                android:textColor="@color/text_2"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/groupList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="24dp"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+        <!-- Быстрый список каналов -->
+        <LinearLayout
+            android:id="@+id/listPanel"
+            android:layout_width="420dp"
+            android:layout_height="match_parent"
+            android:background="@color/overlay"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="16dp"
+            android:visibility="gone">
+
+            <!-- «‹ Категория»: стрелка подсказывает, что влево — список категорий (на планшете — нажать) -->
+            <TextView
+                android:id="@+id/listTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingStart="12dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/accent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="24dp"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
