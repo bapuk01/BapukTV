@@ -48,10 +48,6 @@
 ```bash
 ./gradlew assembleOpenRelease
 ```
-
-APK: `app/build/outputs/apk/open/release/BapukTV-<версия>-open-release.apk` (~1.3 МБ). История версий — в [CHANGELOG.md](CHANGELOG.md).
-Release-сборка для удобства подписана debug-ключом — её можно сразу ставить на ТВ. Для публикации в магазин замените `signingConfig` в `app/build.gradle.kts` на свой ключ.
-
 ### Сборки open и full
 
 - **open** — обычная сборка, без встроенных плейлистов.
